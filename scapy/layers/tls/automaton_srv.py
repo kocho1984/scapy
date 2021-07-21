@@ -554,6 +554,8 @@ class TLSServerAutomaton(_TLSAutomaton):
         m = s.handshake_messages_parsed[-1]
         #  Check if we have to send an HelloRetryRequest
         #  XXX check also with non ECC groups
+        print("MaKo self.curve: %s" % self.curve)
+        #raise self.tls13_PREPARE_HELLORETRYREQUEST()
         if self.curve:
             # We first look for a KeyShareEntry with same group as self.curve
             if not _tls_named_groups[self.curve] in s.tls13_client_pubshares:
@@ -755,8 +757,8 @@ class TLSServerAutomaton(_TLSAutomaton):
             # Standard Handshake
             ext += TLS_Ext_KeyShare_SH(server_share=KeyShareEntry(group=group))
         
-        ext += TLS_Ext_Cookie()
-        
+        #ext += TLS_Ext_Cookie(cookie="dupa")
+
         if self.cur_session.sid is not None:
             p = TLS13ServerHello(cipher=c, sid=self.cur_session.sid, ext=ext)
         else:

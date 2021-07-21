@@ -1,0 +1,7 @@
+clear; python3 capy/test/tls/example_server.py  --cookie --curve=x448
+
+clear; python3 scapy/test/tls/example_client.py
+
+It triggers that server sends to client HelloRetryRequest
+
+--------------
