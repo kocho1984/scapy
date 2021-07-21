@@ -125,6 +125,7 @@ class TLSServerAutomaton(_TLSAutomaton):
         self.max_client_idle_time = max_client_idle_time
         self.curve = None
         self.cookie = cookie
+        print("MaKo_____self.cookie: %s" % self.cookie)
         self.psk_secret = psk
         self.psk_mode = psk_mode
         if handle_session_ticket is None:
@@ -753,7 +754,9 @@ class TLSServerAutomaton(_TLSAutomaton):
         else:
             # Standard Handshake
             ext += TLS_Ext_KeyShare_SH(server_share=KeyShareEntry(group=group))
-
+        
+        ext += TLS_Ext_Cookie()
+        
         if self.cur_session.sid is not None:
             p = TLS13ServerHello(cipher=c, sid=self.cur_session.sid, ext=ext)
         else:
